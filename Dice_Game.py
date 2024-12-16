@@ -18,17 +18,20 @@ def is_tuple_out(dice):
     """Checks if all three dice have the same value (tuple out).
     If all dice show the same number, the player scores 0 for their turn."""
     return (dice[0] == dice[1] == dice[2])
-
+#The function get_fixed_dice is fine for checking which dice are fixed based on pairs, but it doesn't handle all cases. 
 def get_fixed_dice(dice):
-    """Determines which dice are fixed based on matching pairs
-    fixed dice are dice that cannot be rolled again"""
-    if dice[0] == dice[1] and dice[0] != dice[2]:
+    """Determines which dice are fixed based on matching pairs.
+    Fixed dice are dice that cannot be rolled again."""
+    if dice[0] == dice[1] == dice[2]:  # All dice match (tuple out)
+        return [True, True, True]  # All dice are fixed
+    elif dice[0] == dice[1] and dice[0] != dice[2]:
         return [True, True, False]  # The first two dice are fixed
     elif dice[1] == dice[2] and dice[1] != dice[0]:
         return [False, True, True]  # The last two dice are fixed
     elif dice[0] == dice[2] and dice[0] != dice[1]:
         return [True, False, True]  # The first and third dice are fixed
-    return ([False, False, False])  # No dice are fixed if no pairs match
+    return [False, False, False]  # No dice are fixed if no pairs match
+
 
 def player_turn(player, turn, target_score):
     """Handles a single players turn and returns their score
